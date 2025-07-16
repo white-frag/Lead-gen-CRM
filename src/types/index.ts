@@ -85,3 +85,28 @@ export interface KPI {
   meetingsBooked: number;
   activeCampaigns: number;
 }
+
+export interface IReportData {
+  overview: {
+    totalLeads: number;
+    qualifiedLeads: number;
+    conversionRate: number;
+    avgResponseTime: string;
+    activeCampaigns: number;
+    topPerformer: string;
+  };
+  performance: Array<any>;
+  conversion: Array<any>;
+  sources: Array<{
+    name: string;
+    value: number;
+    color: string;
+  }>;
+}
+
+export interface IReport {
+  title: string;
+  period: string;
+  generatedAt: string;
+  metrics: IReportData['overview'];
+}

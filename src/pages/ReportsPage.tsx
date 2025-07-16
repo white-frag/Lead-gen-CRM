@@ -5,14 +5,15 @@ import { Button } from '../components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 import { Badge } from '../components/ui/badge';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
-import { Download, Calendar, TrendingUp, Users, Target, Activity } from 'lucide-react';
+import { Download, TrendingUp, Users, Target, Activity } from 'lucide-react';
 import { mockChartData, mockLeads, mockCampaigns } from '../data/mockData';
+import { IReport, IReportData } from '@/types';
 
 export const ReportsPage: React.FC = () => {
   const [selectedPeriod, setSelectedPeriod] = useState('30d');
 
   // Mock report data
-  const reportData = {
+  const reportData: IReportData = {
     overview: {
       totalLeads: mockLeads.length,
       qualifiedLeads: mockLeads.filter(l => l.status === 'qualified').length,
@@ -34,14 +35,14 @@ export const ReportsPage: React.FC = () => {
 
   const generateReport = () => {
     // Mock report generation
-    const reportData = {
+    const report: IReport = {
       title: 'Monthly Performance Report',
       period: selectedPeriod,
       generatedAt: new Date().toISOString(),
       metrics: reportData.overview
     };
     
-    const dataStr = JSON.stringify(reportData, null, 2);
+    const dataStr = JSON.stringify(report, null, 2);
     const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
     
     const exportFileDefaultName = `report-${selectedPeriod}-${new Date().toISOString().split('T')[0]}.json`;
@@ -177,7 +178,7 @@ export const ReportsPage: React.FC = () => {
                     cx="50%"
                     cy="50%"
                     labelLine={false}
-                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                    label={({ name, percent }) => `${name} ${percent !== undefined ? (percent * 100).toFixed(0) : '0'}%`}
                     outerRadius={80}
                     fill="#8884d8"
                     dataKey="value"
