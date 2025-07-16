@@ -10,7 +10,6 @@ import { mockChartData, mockLeads, mockCampaigns } from '../data/mockData';
 
 export const ReportsPage: React.FC = () => {
   const [selectedPeriod, setSelectedPeriod] = useState('30d');
-  const [selectedReport, setSelectedReport] = useState('overview');
 
   // Mock report data
   const reportData = {
