@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { Header } from '../components/layout/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
-import { Badge } from '../components/ui/badge';
+
 import { StatusBadge } from '../components/ui/StatusBadge';
 import { Calendar, Clock, Plus, Phone, Mail, Users, Video } from 'lucide-react';
 import { mockTasks } from '../data/mockData';
 
 export const CalendarPage: React.FC = () => {
   const [tasks] = useState(mockTasks);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate] = useState(new Date());
 
   const todayTasks = tasks.filter(task => {
     const taskDate = new Date(task.dueDate);

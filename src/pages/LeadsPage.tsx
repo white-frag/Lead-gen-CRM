@@ -7,12 +7,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Badge } from '../components/ui/badge';
 import { StatusBadge } from '../components/ui/StatusBadge';
 import { ScoreIndicator } from '../components/ui/ScoreIndicator';
-import { Plus, Search, Filter, Phone, Mail, Calendar, Eye } from 'lucide-react';
+import { Plus, Search, Phone, Mail, Calendar, Eye } from 'lucide-react';
 import { mockLeads } from '../data/mockData';
 import { Lead } from '../types';
 
 export const LeadsPage: React.FC = () => {
-  const [leads, setLeads] = useState<Lead[]>(mockLeads);
+  const [leads] = useState<Lead[]>(mockLeads);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [industryFilter, setIndustryFilter] = useState<string>('all');
@@ -27,13 +27,7 @@ export const LeadsPage: React.FC = () => {
     return matchesSearch && matchesStatus && matchesIndustry;
   });
 
-  const handleStatusUpdate = (leadId: string, newStatus: string) => {
-    setLeads(leads.map(lead => 
-      lead.id === leadId 
-        ? { ...lead, status: newStatus as Lead['status'], updatedAt: new Date().toISOString() }
-        : lead
-    ));
-  };
+
 
   return (
     <div className="flex-1 overflow-auto">

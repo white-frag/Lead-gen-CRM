@@ -5,7 +5,7 @@ import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
 import { Badge } from '../components/ui/badge';
-import { Plus, Edit, Copy, Trash2, Mail, TrendingUp, Eye } from 'lucide-react';
+import { Plus, Edit, Copy, Mail, TrendingUp, Eye } from 'lucide-react';
 import { mockEmailTemplates } from '../data/mockData';
 
 export const TemplatesPage: React.FC = () => {
