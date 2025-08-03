@@ -19,75 +19,75 @@ export const CampaignsPage: React.FC = () => {
   };
 
   return (
-    <div className="flex-1 overflow-auto">
+    <div className="flex-1 overflow-auto w-full">
       <Header />
       
-      <div className="p-6 space-y-6">
+      <div className="p-4 lg:p-6 space-y-4 lg:space-y-6">
         {/* Page Header */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Campaign Management</h1>
+            <h1 className="text-xl lg:text-2xl font-bold text-gray-900">Campaign Management</h1>
             <p className="text-gray-600">Create and manage your outreach campaigns</p>
           </div>
-          <Button>
+          <Button className="w-full sm:w-auto">
             <Plus className="w-4 h-4 mr-2" />
             Create Campaign
           </Button>
         </div>
 
         {/* Campaign Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
           <Card>
-            <CardContent className="p-6">
+            <CardContent className="p-4 lg:p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-600">Total Leads</p>
-                  <p className="text-2xl font-bold text-gray-900">{totalStats.totalLeads}</p>
+                  <p className="text-xl lg:text-2xl font-bold text-gray-900">{totalStats.totalLeads}</p>
                 </div>
-                <div className="p-3 bg-blue-50 rounded-full">
-                  <Users className="w-6 h-6 text-blue-600" />
+                <div className="p-2 lg:p-3 bg-blue-50 rounded-full">
+                  <Users className="w-5 h-5 lg:w-6 lg:h-6 text-blue-600" />
                 </div>
               </div>
             </CardContent>
           </Card>
 
           <Card>
-            <CardContent className="p-6">
+            <CardContent className="p-4 lg:p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-600">Avg Response Rate</p>
-                  <p className="text-2xl font-bold text-gray-900">{totalStats.avgResponseRate.toFixed(1)}%</p>
+                  <p className="text-xl lg:text-2xl font-bold text-gray-900">{totalStats.avgResponseRate.toFixed(1)}%</p>
                 </div>
-                <div className="p-3 bg-green-50 rounded-full">
-                  <TrendingUp className="w-6 h-6 text-green-600" />
+                <div className="p-2 lg:p-3 bg-green-50 rounded-full">
+                  <TrendingUp className="w-5 h-5 lg:w-6 lg:h-6 text-green-600" />
                 </div>
               </div>
             </CardContent>
           </Card>
 
           <Card>
-            <CardContent className="p-6">
+            <CardContent className="p-4 lg:p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-600">Avg Conversion Rate</p>
-                  <p className="text-2xl font-bold text-gray-900">{totalStats.avgConversionRate.toFixed(1)}%</p>
+                  <p className="text-xl lg:text-2xl font-bold text-gray-900">{totalStats.avgConversionRate.toFixed(1)}%</p>
                 </div>
-                <div className="p-3 bg-purple-50 rounded-full">
-                  <Target className="w-6 h-6 text-purple-600" />
+                <div className="p-2 lg:p-3 bg-purple-50 rounded-full">
+                  <Target className="w-5 h-5 lg:w-6 lg:h-6 text-purple-600" />
                 </div>
               </div>
             </CardContent>
           </Card>
 
           <Card>
-            <CardContent className="p-6">
+            <CardContent className="p-4 lg:p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-600">Active Campaigns</p>
-                  <p className="text-2xl font-bold text-gray-900">{totalStats.activeCampaigns}</p>
+                  <p className="text-xl lg:text-2xl font-bold text-gray-900">{totalStats.activeCampaigns}</p>
                 </div>
-                <div className="p-3 bg-orange-50 rounded-full">
-                  <Calendar className="w-6 h-6 text-orange-600" />
+                <div className="p-2 lg:p-3 bg-orange-50 rounded-full">
+                  <Calendar className="w-5 h-5 lg:w-6 lg:h-6 text-orange-600" />
                 </div>
               </div>
             </CardContent>
@@ -95,7 +95,7 @@ export const CampaignsPage: React.FC = () => {
         </div>
 
         {/* Campaigns List */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 lg:gap-6">
           {campaigns.map((campaign) => (
             <Card key={campaign.id} className="hover:shadow-md transition-shadow">
               <CardHeader>

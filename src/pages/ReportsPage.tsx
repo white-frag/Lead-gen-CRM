@@ -54,19 +54,19 @@ export const ReportsPage: React.FC = () => {
   };
 
   return (
-    <div className="flex-1 overflow-auto">
+    <div className="flex-1 overflow-auto w-full">
       <Header />
       
-      <div className="p-6 space-y-6">
+      <div className="p-4 lg:p-6 space-y-4 lg:space-y-6">
         {/* Page Header */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Reports & Analytics</h1>
+            <h1 className="text-xl lg:text-2xl font-bold text-gray-900">Reports & Analytics</h1>
             <p className="text-gray-600">Track performance and generate insights</p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-col sm:flex-row gap-2">
             <Select value={selectedPeriod} onValueChange={setSelectedPeriod}>
-              <SelectTrigger className="w-32">
+              <SelectTrigger className="w-full sm:w-32">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -76,7 +76,7 @@ export const ReportsPage: React.FC = () => {
                 <SelectItem value="1y">Last year</SelectItem>
               </SelectContent>
             </Select>
-            <Button onClick={generateReport}>
+            <Button onClick={generateReport} className="w-full sm:w-auto">
               <Download className="w-4 h-4 mr-2" />
               Export Report
             </Button>
@@ -84,7 +84,7 @@ export const ReportsPage: React.FC = () => {
         </div>
 
         {/* Report Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center justify-between">

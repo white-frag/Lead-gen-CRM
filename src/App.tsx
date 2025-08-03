@@ -9,6 +9,7 @@ import { TemplatesPage } from './pages/TemplatesPage';
 import { CalendarPage } from './pages/CalendarPage';
 import { ReportsPage } from './pages/ReportsPage';
 import { Sidebar } from './components/layout/Sidebar';
+import { MobileHeader } from './components/layout/MobileHeader';
 import { Toaster } from './components/ui/sonner';
 import './App.css';
 
@@ -18,11 +19,32 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 };
 
 const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [sidebarOpen, setSidebarOpen] = React.useState(false);
+
   return (
     <div className="flex h-screen bg-gray-50">
-      <Sidebar />
-      <main className="flex-1 overflow-hidden">
-        {children}
+      {/* Mobile sidebar overlay */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 z-40 bg-black bg-opacity-50 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+      
+      {/* Sidebar */}
+      <div className={`
+        fixed inset-y-0 left-0 z-50 w-64 transform transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0
+        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+      `}>
+        <Sidebar onClose={() => setSidebarOpen(false)} />
+      </div>
+      
+      {/* Main content */}
+      <main className="flex-1 overflow-hidden w-full lg:w-auto">
+        <MobileHeader onMenuClick={() => setSidebarOpen(true)} />
+        <div className="lg:ml-0">
+          {children}
+        </div>
       </main>
     </div>
   );

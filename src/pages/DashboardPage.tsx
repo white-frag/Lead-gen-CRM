@@ -51,31 +51,31 @@ export const DashboardPage: React.FC = () => {
   ];
 
   return (
-    <div className="flex-1 overflow-auto">
+    <div className="flex-1 overflow-auto w-full">
       <Header />
       
-      <div className="p-6 space-y-6">
+      <div className="p-4 lg:p-6 space-y-4 lg:space-y-6">
         {/* Welcome Section */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Welcome back, Alex!</h1>
+            <h1 className="text-xl lg:text-2xl font-bold text-gray-900">Welcome back, Alex!</h1>
             <p className="text-gray-600">Here's what's happening with your leads today.</p>
           </div>
-          <div className="text-right">
+          <div className="text-left sm:text-right">
             <p className="text-sm text-gray-500">Today</p>
             <p className="text-lg font-semibold">{new Date().toLocaleDateString()}</p>
           </div>
         </div>
 
         {/* KPI Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
           {kpis.map((kpi, index) => (
             <Card key={index} className="hover:shadow-md transition-shadow">
-              <CardContent className="p-6">
+              <CardContent className="p-4 lg:p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium text-gray-600">{kpi.title}</p>
-                    <p className="text-2xl font-bold text-gray-900">{kpi.value}</p>
+                    <p className="text-xl lg:text-2xl font-bold text-gray-900">{kpi.value}</p>
                     <Badge 
                       variant={kpi.changeType === 'positive' ? 'default' : 'secondary'}
                       className="mt-2"
@@ -83,8 +83,8 @@ export const DashboardPage: React.FC = () => {
                       {kpi.change}
                     </Badge>
                   </div>
-                  <div className="p-3 bg-blue-50 rounded-full">
-                    <kpi.icon className="w-6 h-6 text-blue-600" />
+                  <div className="p-2 lg:p-3 bg-blue-50 rounded-full">
+                    <kpi.icon className="w-5 h-5 lg:w-6 lg:h-6 text-blue-600" />
                   </div>
                 </div>
               </CardContent>
@@ -93,13 +93,13 @@ export const DashboardPage: React.FC = () => {
         </div>
 
         {/* Charts */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 lg:gap-6">
           <Card>
             <CardHeader>
               <CardTitle>Outreach vs Response</CardTitle>
             </CardHeader>
             <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
+              <ResponsiveContainer width="100%" height={250} className="min-h-[250px]">
                 <LineChart data={mockChartData.outreachData}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
@@ -117,7 +117,7 @@ export const DashboardPage: React.FC = () => {
               <CardTitle>Conversion Funnel</CardTitle>
             </CardHeader>
             <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
+              <ResponsiveContainer width="100%" height={250} className="min-h-[250px]">
                 <BarChart data={mockChartData.conversionData}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
@@ -133,7 +133,7 @@ export const DashboardPage: React.FC = () => {
         </div>
 
         {/* Today's Tasks and Recent Activity */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 lg:gap-6">
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -150,11 +150,11 @@ export const DashboardPage: React.FC = () => {
                       {task.type === 'email' && <Mail className="w-4 h-4 text-blue-600" />}
                       {task.type === 'meeting' && <UserCheck className="w-4 h-4 text-blue-600" />}
                     </div>
-                    <div className="flex-1">
-                      <p className="font-medium">{task.title}</p>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium truncate">{task.title}</p>
                       <p className="text-sm text-gray-600">{task.time}</p>
                     </div>
-                    <Badge variant={task.priority === 'high' ? 'destructive' : 'secondary'}>
+                    <Badge variant={task.priority === 'high' ? 'destructive' : 'secondary'} className="shrink-0">
                       {task.priority}
                     </Badge>
                   </div>
@@ -174,14 +174,14 @@ export const DashboardPage: React.FC = () => {
               <div className="space-y-3">
                 {recentActivities.map((activity) => (
                   <div key={activity.id} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                    <div className={`w-2 h-2 rounded-full ${
+                    <div className={`w-2 h-2 rounded-full shrink-0 ${
                       activity.type === 'positive' ? 'bg-green-500' : 'bg-blue-500'
                     }`} />
-                    <div className="flex-1">
-                      <p className="font-medium">{activity.action}</p>
-                      <p className="text-sm text-gray-600">{activity.lead}</p>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium truncate">{activity.action}</p>
+                      <p className="text-sm text-gray-600 truncate">{activity.lead}</p>
                     </div>
-                    <span className="text-xs text-gray-500">{activity.time}</span>
+                    <span className="text-xs text-gray-500 shrink-0">{activity.time}</span>
                   </div>
                 ))}
               </div>

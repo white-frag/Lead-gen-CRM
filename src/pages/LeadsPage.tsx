@@ -30,17 +30,17 @@ export const LeadsPage: React.FC = () => {
 
 
   return (
-    <div className="flex-1 overflow-auto">
+    <div className="flex-1 overflow-auto w-full">
       <Header />
       
-      <div className="p-6 space-y-6">
+      <div className="p-4 lg:p-6 space-y-4 lg:space-y-6">
         {/* Page Header */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Lead Management</h1>
+            <h1 className="text-xl lg:text-2xl font-bold text-gray-900">Lead Management</h1>
             <p className="text-gray-600">Manage and track your sales leads</p>
           </div>
-          <Button>
+          <Button className="w-full sm:w-auto">
             <Plus className="w-4 h-4 mr-2" />
             Add Lead
           </Button>
@@ -49,8 +49,8 @@ export const LeadsPage: React.FC = () => {
         {/* Filters */}
         <Card>
           <CardContent className="p-4">
-            <div className="flex flex-wrap gap-4 items-center">
-              <div className="flex-1 min-w-64">
+            <div className="flex flex-col lg:flex-row gap-4 items-stretch lg:items-center">
+              <div className="flex-1">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                   <Input
@@ -61,42 +61,44 @@ export const LeadsPage: React.FC = () => {
                   />
                 </div>
               </div>
-              <Select value={statusFilter} onValueChange={setStatusFilter}>
-                <SelectTrigger className="w-48">
-                  <SelectValue placeholder="Filter by status" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Status</SelectItem>
-                  <SelectItem value="new">New</SelectItem>
-                  <SelectItem value="contacted">Contacted</SelectItem>
-                  <SelectItem value="qualified">Qualified</SelectItem>
-                  <SelectItem value="proposal">Proposal</SelectItem>
-                  <SelectItem value="closed">Closed</SelectItem>
-                  <SelectItem value="lost">Lost</SelectItem>
-                </SelectContent>
-              </Select>
-              <Select value={industryFilter} onValueChange={setIndustryFilter}>
-                <SelectTrigger className="w-48">
-                  <SelectValue placeholder="Filter by industry" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Industries</SelectItem>
-                  <SelectItem value="Software">Software</SelectItem>
-                  <SelectItem value="Marketing">Marketing</SelectItem>
-                  <SelectItem value="Finance">Finance</SelectItem>
-                  <SelectItem value="Healthcare">Healthcare</SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="flex flex-col sm:flex-row gap-2">
+                <Select value={statusFilter} onValueChange={setStatusFilter}>
+                  <SelectTrigger className="w-full sm:w-48">
+                    <SelectValue placeholder="Filter by status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Status</SelectItem>
+                    <SelectItem value="new">New</SelectItem>
+                    <SelectItem value="contacted">Contacted</SelectItem>
+                    <SelectItem value="qualified">Qualified</SelectItem>
+                    <SelectItem value="proposal">Proposal</SelectItem>
+                    <SelectItem value="closed">Closed</SelectItem>
+                    <SelectItem value="lost">Lost</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Select value={industryFilter} onValueChange={setIndustryFilter}>
+                  <SelectTrigger className="w-full sm:w-48">
+                    <SelectValue placeholder="Filter by industry" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Industries</SelectItem>
+                    <SelectItem value="Software">Software</SelectItem>
+                    <SelectItem value="Marketing">Marketing</SelectItem>
+                    <SelectItem value="Finance">Finance</SelectItem>
+                    <SelectItem value="Healthcare">Healthcare</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
           </CardContent>
         </Card>
 
         {/* Results Summary */}
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4">
           <p className="text-sm text-gray-600">
             Showing {filteredLeads.length} of {leads.length} leads
           </p>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <Badge variant="secondary">New: {leads.filter(l => l.status === 'new').length}</Badge>
             <Badge variant="secondary">Qualified: {leads.filter(l => l.status === 'qualified').length}</Badge>
             <Badge variant="secondary">Proposals: {leads.filter(l => l.status === 'proposal').length}</Badge>
@@ -109,7 +111,8 @@ export const LeadsPage: React.FC = () => {
             <CardTitle>Leads</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="overflow-x-auto">
+            {/* Desktop Table */}
+            <div className="hidden lg:block overflow-x-auto">
               <table className="w-full">
                 <thead>
                   <tr className="border-b">
@@ -170,6 +173,52 @@ export const LeadsPage: React.FC = () => {
                   ))}
                 </tbody>
               </table>
+            </div>
+
+            {/* Mobile Cards */}
+            <div className="lg:hidden space-y-4">
+              {filteredLeads.map((lead) => (
+                <div key={lead.id} className="border rounded-lg p-4 space-y-3">
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <h3 className="font-medium text-gray-900">{lead.companyName}</h3>
+                      <p className="text-sm text-gray-500">{lead.source}</p>
+                    </div>
+                    <StatusBadge status={lead.status} />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <div>
+                      <p className="text-sm font-medium text-gray-900">{lead.contactName}</p>
+                      <p className="text-sm text-gray-500">{lead.email}</p>
+                      <p className="text-sm text-gray-500">{lead.phone}</p>
+                    </div>
+                    
+                    <div className="flex items-center gap-2">
+                      <Badge variant="outline">{lead.industry}</Badge>
+                      <ScoreIndicator score={lead.score} size="sm" showLabel={false} />
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <p className="text-sm font-medium">{lead.assignedSDR}</p>
+                      <div className="flex gap-1">
+                        <Button size="sm" variant="outline">
+                          <Phone className="w-4 h-4" />
+                        </Button>
+                        <Button size="sm" variant="outline">
+                          <Mail className="w-4 h-4" />
+                        </Button>
+                        <Button size="sm" variant="outline">
+                          <Calendar className="w-4 h-4" />
+                        </Button>
+                        <Button size="sm" variant="outline">
+                          <Eye className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </CardContent>
         </Card>
